@@ -20,12 +20,13 @@
 
 function doPost(e) {
   try {
-    // Parse the data - handle both JSON and form data
-    let data;
-    if (e.postData.type === 'application/json') {
+    // Parse the data - handle both JSON and form-urlencoded data
+    var data = {};
+    
+    if (e.postData && e.postData.type === 'application/json') {
       data = JSON.parse(e.postData.contents);
-    } else {
-      // Handle form data
+    } else if (e.parameter) {
+      // Handle form-urlencoded data (from fetch or form submit)
       data = {
         fullName: e.parameter.fullName || '',
         email: e.parameter.email || '',
@@ -35,22 +36,19 @@ function doPost(e) {
     }
     
     // Open the spreadsheet by ID
-    const spreadsheetId = '1ADLySeraWl-4K64ONrkVYae0BMir5zfyt4jz4nMMYro';
-    const sheetId = 1683568260; // Form Leads sheet ID
-    const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
-    let sheet = spreadsheet.getSheetById(sheetId);
+    var spreadsheetId = '1ADLySeraWl-4K64ONrkVYae0BMir5zfyt4jz4nMMYro';
+    var spreadsheet = SpreadsheetApp.openById(spreadsheetId);
     
-    // If sheet not found by ID, try by name
+    // Use getSheetByName — getSheetById does NOT exist in Apps Script
+    var sheet = spreadsheet.getSheetByName('Form Leads');
+    
     if (!sheet) {
-      sheet = spreadsheet.getSheetByName('Form Leads');
-      if (!sheet) {
-        throw new Error('Sheet "Form Leads" not found');
-      }
+      throw new Error('Sheet "Form Leads" not found');
     }
     
     // Prepare the row data matching your sheet columns:
     // Full Name | Email Address | Phone Number | Project Vision
-    const rowData = [
+    var rowData = [
       data.fullName || '',
       data.email || '',
       data.phone || '',
@@ -60,7 +58,7 @@ function doPost(e) {
     // Append the data to the sheet
     sheet.appendRow(rowData);
     
-    // Return success response with CORS headers
+    // Return success response
     return ContentService
       .createTextOutput(JSON.stringify({
         success: true,
@@ -69,7 +67,7 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
       
   } catch (error) {
-    // Return error response with CORS headers
+    // Return error response
     return ContentService
       .createTextOutput(JSON.stringify({
         success: false,
@@ -79,7 +77,7 @@ function doPost(e) {
   }
 }
 
-// Optional: GET handler for testing
+// GET handler for testing — visit your Web App URL in browser to check it works
 function doGet(e) {
   return ContentService
     .createTextOutput('Google Sheets Form Handler is running!')
