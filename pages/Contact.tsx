@@ -39,21 +39,51 @@ const Contact: React.FC = () => {
       // Google Apps Script Web App URL
       const scriptUrl = 'https://script.google.com/macros/s/AKfycby9pqdnUmAF_yJiu9N43a7ZtStSLybv_ZrbUcF__Ngoe-XwwVk2YtwkKvs15zaCJHVrAA/exec';
       
-      const response = await fetch(scriptUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to submit form');
-      }
-
-      const result = await response.json();
+      // Use hidden iframe approach for Google Apps Script to avoid CORS issues
+      const iframeId = 'hidden_iframe_' + Date.now();
+      const iframe = document.createElement('iframe');
+      iframe.id = iframeId;
+      iframe.name = iframeId;
+      iframe.style.display = 'none';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      document.body.appendChild(iframe);
       
-      if (result.success) {
+      // Create a form and submit it
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = scriptUrl;
+      form.target = iframeId;
+      form.style.display = 'none';
+      
+      // Add form fields
+      Object.entries(formData).forEach(([key, value]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = String(value);
+        form.appendChild(input);
+      });
+      
+      document.body.appendChild(form);
+      
+      // Handle success with cleanup
+      let successHandled = false;
+      const handleSuccess = () => {
+        if (successHandled) return;
+        successHandled = true;
+        
+        // Clean up DOM elements
+        const formEl = document.getElementById(form.id) || form;
+        const iframeEl = document.getElementById(iframeId);
+        if (formEl && formEl.parentNode) {
+          formEl.parentNode.removeChild(formEl);
+        }
+        if (iframeEl && iframeEl.parentNode) {
+          iframeEl.parentNode.removeChild(iframeEl);
+        }
+        
+        // Show success message
         setSubmitted(true);
         setFormData({
           fullName: '',
@@ -61,13 +91,22 @@ const Contact: React.FC = () => {
           phone: '',
           projectVision: ''
         });
-      } else {
-        throw new Error(result.error || 'Failed to submit form');
-      }
+        setLoading(false);
+      };
+      
+      // Handle iframe load to detect completion
+      iframe.onload = () => {
+        setTimeout(handleSuccess, 500);
+      };
+      
+      // Fallback timeout in case iframe.onload doesn't fire
+      setTimeout(handleSuccess, 2000);
+      
+      form.submit();
+      
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to submit form. Please try again or contact us directly.');
       console.error('Form submission error:', err);
-    } finally {
       setLoading(false);
     }
   };

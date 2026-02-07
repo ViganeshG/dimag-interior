@@ -20,25 +20,33 @@
 
 function doPost(e) {
   try {
-    // Parse the JSON data from the request
-    const data = JSON.parse(e.postData.contents);
+    // Parse the data - handle both JSON and form data
+    let data;
+    if (e.postData.type === 'application/json') {
+      data = JSON.parse(e.postData.contents);
+    } else {
+      // Handle form data
+      data = {
+        fullName: e.parameter.fullName || '',
+        email: e.parameter.email || '',
+        phone: e.parameter.phone || '',
+        projectVision: e.parameter.projectVision || ''
+      };
+    }
     
     // Open the spreadsheet by ID
     const spreadsheetId = '1ADLySeraWl-4K64ONrkVYae0BMir5zfyt4jz4nMMYro';
     const sheetId = 1683568260; // Form Leads sheet ID
     const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
-    const sheet = spreadsheet.getSheetById(sheetId);
+    let sheet = spreadsheet.getSheetById(sheetId);
     
     // If sheet not found by ID, try by name
     if (!sheet) {
-      const sheet = spreadsheet.getSheetByName('Form Leads');
+      sheet = spreadsheet.getSheetByName('Form Leads');
       if (!sheet) {
         throw new Error('Sheet "Form Leads" not found');
       }
     }
-    
-    // Get the last row to append data
-    const lastRow = sheet.getLastRow();
     
     // Prepare the row data matching your sheet columns:
     // Full Name | Email Address | Phone Number | Project Vision
@@ -52,7 +60,7 @@ function doPost(e) {
     // Append the data to the sheet
     sheet.appendRow(rowData);
     
-    // Return success response
+    // Return success response with CORS headers
     return ContentService
       .createTextOutput(JSON.stringify({
         success: true,
@@ -61,7 +69,7 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
       
   } catch (error) {
-    // Return error response
+    // Return error response with CORS headers
     return ContentService
       .createTextOutput(JSON.stringify({
         success: false,
