@@ -37,7 +37,7 @@ const Contact: React.FC = () => {
 
     try {
       // Google Apps Script Web App URL
-      const scriptUrl = 'https://script.google.com/macros/s/AKfycby9pqdnUmAF_yJiu9N43a7ZtStSLybv_ZrbUcF__Ngoe-XwwVk2YtwkKvs15zaCJHVrAA/exec';
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycbx41ujeskM5tYtDJgwLAsQfyMRCcXtl-6O2NVLZeczbNLRYjUuE06K38GTAF8xCGMCyTQ/exec';
       
       // Send as form-urlencoded to avoid CORS preflight
       // (application/x-www-form-urlencoded is a "simple" request — no preflight needed)
