@@ -4,13 +4,72 @@ import SectionHeading from '../components/SectionHeading';
 import Button from '../components/Button';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
+interface FormData {
+  fullName: string;
+  email: string;
+  phone: string;
+  projectVision: string;
+}
+
 const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<FormData>({
+    fullName: '',
+    email: '',
+    phone: '',
+    projectVision: ''
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    // Real logic would happen here
+    setLoading(true);
+    setError(null);
+
+    try {
+      // Google Apps Script Web App URL
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycby9pqdnUmAF_yJiu9N43a7ZtStSLybv_ZrbUcF__Ngoe-XwwVk2YtwkKvs15zaCJHVrAA/exec';
+      
+      const response = await fetch(scriptUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setSubmitted(true);
+        setFormData({
+          fullName: '',
+          email: '',
+          phone: '',
+          projectVision: ''
+        });
+      } else {
+        throw new Error(result.error || 'Failed to submit form');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to submit form. Please try again or contact us directly.');
+      console.error('Form submission error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,7 +92,7 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-xs uppercase tracking-widest font-bold text-[#1A1A1A]/40 mb-1">Email</h4>
-                  <p className="font-medium">concierge@auradesign.com</p>
+                  <a href="mailto:preeth.archi@gmail.com" className="font-medium hover:text-[#D4AF37] transition-colors">preeth.archi@gmail.com</a>
                 </div>
               </div>
               <div className="flex items-center gap-6">
@@ -42,16 +101,16 @@ const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-xs uppercase tracking-widest font-bold text-[#1A1A1A]/40 mb-1">Call Us</h4>
-                  <p className="font-medium">+1 (555) 890-1234</p>
+                  <a href="tel:7411624737" className="font-medium hover:text-[#D4AF37] transition-colors">7411624737</a>
                 </div>
               </div>
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 bg-white flex items-center justify-center border border-[#D4AF37]/30">
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 bg-white flex items-center justify-center border border-[#D4AF37]/30 flex-shrink-0">
                   <MapPin className="text-[#D4AF37]" size={20} />
                 </div>
                 <div>
                   <h4 className="text-xs uppercase tracking-widest font-bold text-[#1A1A1A]/40 mb-1">Studio</h4>
-                  <p className="font-medium">120 Madison Ave, New York, NY</p>
+                  <p className="font-medium">#5, Esther enclave, Jayanthi Nagar, Hormavu, Bengaluru 560043</p>
                 </div>
               </div>
             </div>
@@ -69,12 +128,20 @@ const Contact: React.FC = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-8">
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm">
+                    {error}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
                     <label className="text-[10px] uppercase tracking-widest font-bold mb-2 block opacity-40">Full Name</label>
                     <input 
                       required
                       type="text" 
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
                       className="w-full bg-transparent border-b border-[#1A1A1A]/10 py-3 focus:outline-none focus:border-[#D4AF37] transition-colors"
                       placeholder="Jane Doe"
                     />
@@ -84,6 +151,9 @@ const Contact: React.FC = () => {
                     <input 
                       required
                       type="email" 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       className="w-full bg-transparent border-b border-[#1A1A1A]/10 py-3 focus:outline-none focus:border-[#D4AF37] transition-colors"
                       placeholder="jane@example.com"
                     />
@@ -93,19 +163,27 @@ const Contact: React.FC = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold mb-2 block opacity-40">Phone Number</label>
                   <input 
                     type="tel" 
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     className="w-full bg-transparent border-b border-[#1A1A1A]/10 py-3 focus:outline-none focus:border-[#D4AF37] transition-colors"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+91 7411624737"
                   />
                 </div>
                 <div>
                   <label className="text-[10px] uppercase tracking-widest font-bold mb-2 block opacity-40">Project Vision</label>
                   <textarea 
                     rows={4}
+                    name="projectVision"
+                    value={formData.projectVision}
+                    onChange={handleChange}
                     className="w-full bg-transparent border-b border-[#1A1A1A]/10 py-3 focus:outline-none focus:border-[#D4AF37] transition-colors resize-none"
                     placeholder="Tell us about your space..."
                   />
                 </div>
-                <Button type="submit" className="w-full">Send Inquiry</Button>
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading ? 'Sending...' : 'Send Inquiry'}
+                </Button>
               </form>
             )}
           </div>

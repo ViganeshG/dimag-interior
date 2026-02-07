@@ -27,8 +27,12 @@ const Navbar: React.FC = () => {
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-[#FAF9F6]/90 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-8'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <Link to="/" className="text-3xl font-serif tracking-tighter hover:text-[#D4AF37] transition-colors">
-          Spacesco<span className="text-[#D4AF37]">.</span>
+        <Link to="/" className="flex items-center">
+          <img 
+            src="/images/Logos/Spacesco - Logo - Gradient Version.png" 
+            alt="Spacesco Logo" 
+            className="h-10 w-auto"
+          />
         </Link>
 
         {/* Desktop Nav */}

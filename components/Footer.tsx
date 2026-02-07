@@ -9,7 +9,13 @@ const Footer: React.FC = () => {
     <footer className="bg-[#1A1A1A] text-white pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-12 mb-10">
         <div className="col-span-1 md:col-span-1">
-          <h3 className="text-3xl font-serif mb-6">Spacesco<span className="text-[#D4AF37]">.</span></h3>
+          <div className="mb-6">
+            <img 
+              src="/images/Logos/Spacesco - Logo - Gradient Version.png" 
+              alt="Spacesco Logo" 
+              className="h-12 w-auto brightness-0 invert"
+            />
+          </div>
           <p className="text-white/60 text-sm leading-relaxed mb-6">
             Crafting soulful spaces that tell your unique story. Luxury minimalism for modern living.
           </p>
@@ -34,14 +40,17 @@ const Footer: React.FC = () => {
         <div>
           <h4 className="text-xs uppercase tracking-[0.2em] font-semibold mb-6 text-[#D4AF37]">Contact</h4>
           <ul className="space-y-4 text-sm text-white/60">
-            <li className="flex items-center gap-3">
-              <MapPin size={16} /> 120 Designer Lane, NY 10001
+            <li className="flex items-start gap-3">
+              <MapPin size={16} className="mt-1 flex-shrink-0" /> 
+              <span>#5, Esther enclave, Jayanthi Nagar, Hormavu, Bengaluru 560043</span>
             </li>
             <li className="flex items-center gap-3">
-              <Phone size={16} /> +1 (555) 012-3456
+              <Phone size={16} className="flex-shrink-0" /> 
+              <a href="tel:7411624737" className="hover:text-white transition-colors">7411624737</a>
             </li>
             <li className="flex items-center gap-3">
-              <Mail size={16} /> hello@spacesco.com
+              <Mail size={16} className="flex-shrink-0" /> 
+              <a href="mailto:preeth.archi@gmail.com" className="hover:text-white transition-colors">preeth.archi@gmail.com</a>
             </li>
           </ul>
         </div>

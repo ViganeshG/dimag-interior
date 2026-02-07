@@ -4,13 +4,13 @@ import SectionHeading from '../components/SectionHeading';
 import Button from '../components/Button';
 import { PROJECTS } from '../constants';
 import { Category, Project } from '../types';
-import { X, Calendar, MapPin, ExternalLink } from 'lucide-react';
+import { X, Calendar, MapPin, User, Square } from 'lucide-react';
 
 const Portfolio: React.FC = () => {
   const [filter, setFilter] = useState<Category>('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const categories: Category[] = ['All', 'Living Room', 'Kitchen', 'Bedroom', 'Office', 'Bathroom', 'Outdoor'];
+  const categories: Category[] = ['All', 'Architecture', 'Interiors', 'Construction', 'Remodelling'];
   
   const filteredProjects = filter === 'All' 
     ? PROJECTS 
@@ -86,11 +86,19 @@ const Portfolio: React.FC = () => {
               
               <div className="space-y-4 mb-10 border-t border-b border-[#1A1A1A]/10 py-6">
                 <div className="flex items-center gap-4 text-xs uppercase tracking-widest text-[#1A1A1A]/60">
-                  <Calendar size={14} className="text-[#D4AF37]" /> Year: {selectedProject.year}
+                  <User size={14} className="text-[#D4AF37]" /> {selectedProject.clientName}
                 </div>
                 <div className="flex items-center gap-4 text-xs uppercase tracking-widest text-[#1A1A1A]/60">
                   <MapPin size={14} className="text-[#D4AF37]" /> {selectedProject.location}
                 </div>
+                <div className="flex items-center gap-4 text-xs uppercase tracking-widest text-[#1A1A1A]/60">
+                  <Calendar size={14} className="text-[#D4AF37]" /> Year: {selectedProject.year}
+                </div>
+                {selectedProject.builtupArea && (
+                  <div className="flex items-center gap-4 text-xs uppercase tracking-widest text-[#1A1A1A]/60">
+                    <Square size={14} className="text-[#D4AF37]" /> Built-up Area: {selectedProject.builtupArea.toLocaleString()} Sft
+                  </div>
+                )}
               </div>
 
               <div className="mt-auto">

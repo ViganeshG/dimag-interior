@@ -1,5 +1,5 @@
 
-export type Category = 'All' | 'Living Room' | 'Kitchen' | 'Bedroom' | 'Office' | 'Bathroom' | 'Outdoor';
+export type Category = 'All' | 'Architecture' | 'Interiors' | 'Construction' | 'Remodelling';
 
 export interface Project {
   id: string;
@@ -9,6 +9,8 @@ export interface Project {
   description: string;
   year: string;
   location: string;
+  clientName: string;
+  builtupArea?: number; // in square feet
 }
 
 export interface Service {

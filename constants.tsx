@@ -2,113 +2,149 @@
 import { Project, Service, Testimonial } from './types';
 
 export const PROJECTS: Project[] = [
+  // Architecture Projects
   {
     id: '1',
-    title: 'Minimalist Sanctuary',
-    category: 'Living Room',
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1200',
-    description: 'A serene living space focusing on natural light and textural depth. We used custom oak furniture and soft linen upholstery to create a warm, inviting atmosphere.',
-    year: '2023',
-    location: 'Beverly Hills, CA'
+    title: 'Gangadhar',
+    category: 'Architecture',
+    image: '/images/portfolio/Architecture/Gangadhar/Gangadhar Picture 01.jpg',
+    description: 'A modern residential architecture project featuring contemporary design elements and optimal space utilization.',
+    year: '2024',
+    location: 'Bangalore',
+    clientName: 'Gangadhar'
   },
   {
     id: '2',
-    title: 'The Chef\'s Atelier',
-    category: 'Kitchen',
-    image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=1200',
-    description: 'Modern functionality meets classic luxury. Featuring Carrara marble countertops and gold-finished fixtures.',
-    year: '2023',
-    location: 'Chelsea, NY'
+    title: 'Lavanya',
+    category: 'Architecture',
+    image: '/images/portfolio/Architecture/Lavanya/1.jpg',
+    description: 'Spacious residential design with emphasis on natural lighting and ventilation, creating a harmonious living environment.',
+    year: '2024',
+    location: 'Bangalore',
+    clientName: 'Lavanya'
   },
   {
     id: '3',
-    title: 'Cloud Suite',
-    category: 'Bedroom',
-    image: 'https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&q=80&w=1200',
-    description: 'An ethereal bedroom design utilizing a palette of whites and greys with velvet accents.',
+    title: 'Vasudeva',
+    category: 'Architecture',
+    image: '/images/portfolio/Architecture/Vasudeva/2.jpeg',
+    description: 'Elegant residential architecture combining traditional elements with modern functionality.',
     year: '2024',
-    location: 'London, UK'
+    location: 'Bangalore',
+    clientName: 'Vasudeva'
   },
   {
     id: '4',
-    title: 'Executive Focus',
-    category: 'Office',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200',
-    description: 'A sophisticated workspace designed to boost productivity while maintaining an elegant aesthetic.',
-    year: '2023',
-    location: 'Singapore'
+    title: 'Vasudevan',
+    category: 'Architecture',
+    image: '/images/portfolio/Architecture/Vasudevan/Lift.jpg',
+    description: 'Contemporary residential design with clean lines and sustainable building practices.',
+    year: '2024',
+    location: 'Bangalore',
+    clientName: 'Vasudevan'
   },
   {
     id: '5',
-    title: 'Modern Heritage',
-    category: 'Living Room',
-    image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=1200',
-    description: 'Mixing mid-century modern elements with contemporary comforts.',
+    title: 'Lilly Apartment',
+    category: 'Architecture',
+    image: '/images/portfolio/Architecture/Lilly Apartment/2.jpg',
+    description: 'Modern apartment complex design with thoughtful space planning and contemporary aesthetics.',
     year: '2024',
-    location: 'Paris, FR'
+    location: 'Bangalore',
+    clientName: 'Lilly Apartment'
   },
   {
     id: '6',
-    title: 'Urban Loft',
-    category: 'Kitchen',
-    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&q=80&w=1200',
-    description: 'Industrial chic kitchen with exposed brick and high-end stainless appliances.',
-    year: '2022',
-    location: 'Chicago, IL'
+    title: 'Sunflower Apartment',
+    category: 'Architecture',
+    image: '/images/portfolio/Architecture/Sunflower Apartment/1.jpg',
+    description: 'Elegant apartment architecture featuring premium finishes and functional design.',
+    year: '2024',
+    location: 'Bangalore',
+    clientName: 'Sunflower Apartment'
   },
+  // Interiors Projects
   {
     id: '7',
-    title: 'Zen Spa Retreat',
-    category: 'Bathroom',
-    image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1200',
-    description: 'A tranquil bathroom sanctuary featuring natural stone, a floating vanity, and a freestanding soaking tub.',
+    title: 'Mr. Vasudevan',
+    category: 'Interiors',
+    image: '/images/portfolio/Interiors/Vasudevan/Kitchen.jpg',
+    description: 'Complete interior transformation with premium finishes and custom-designed furniture pieces.',
     year: '2024',
-    location: 'Kyoto, JP'
+    location: 'Bangalore',
+    clientName: 'Mr. Vasudevan'
   },
   {
     id: '8',
-    title: 'Skyline Terrace',
-    category: 'Outdoor',
-    image: 'https://images.unsplash.com/photo-1533154683836-84ea7a0bc310?auto=format&fit=crop&q=80&w=1200',
-    description: 'Luxury rooftop lounge area with weatherproof bespoke seating and fire pit.',
-    year: '2023',
-    location: 'Dubai, UAE'
+    title: 'Mr. Palanisamy',
+    category: 'Interiors',
+    image: '/images/portfolio/Interiors/Palanisamy/IMG_0057.jpg',
+    description: 'Modern interior design featuring minimalist aesthetics and functional space planning.',
+    year: '2024',
+    location: 'Bangalore',
+    clientName: 'Mr. Palanisamy'
   },
   {
     id: '9',
-    title: 'Velvet Midnight',
-    category: 'Bedroom',
-    image: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=1200',
-    description: 'Moody, dramatic bedroom design with deep blue velvet walls and brass lighting.',
-    year: '2023',
-    location: 'Melbourne, AU'
+    title: 'Miss Preeti',
+    category: 'Interiors',
+    image: '/images/portfolio/Interiors/Preethi/20140509_092600.jpg',
+    description: 'Elegant interior styling with attention to detail and premium material selection.',
+    year: '2024',
+    location: 'Bangalore',
+    clientName: 'Miss Preeti'
   },
   {
     id: '10',
-    title: 'The Glass Pavilion',
-    category: 'Living Room',
-    image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200',
-    description: 'Floor-to-ceiling windows meet minimal furniture to let the landscape do the talking.',
+    title: 'Office Spaces',
+    category: 'Interiors',
+    image: '/images/portfolio/Interiors/Office Space/1.jpeg',
+    description: 'Professional office space design creating a productive and inspiring work environment.',
     year: '2024',
-    location: 'Aspen, CO'
+    location: 'Bangalore',
+    clientName: 'Office Spaces'
   },
+  // Construction Projects
   {
     id: '11',
-    title: 'Marble & Monolith',
-    category: 'Bathroom',
-    image: 'https://images.unsplash.com/photo-1620626011761-9963d7521476?auto=format&fit=crop&q=80&w=1200',
-    description: 'Seamless marble surfaces create a monolithic, ultra-luxurious aesthetic.',
+    title: 'Arvind',
+    category: 'Construction',
+    image: '/images/portfolio/Construction/Arvind/1.jpeg',
+    description: 'Complete construction project from foundation to finishing, ensuring quality and timely delivery.',
     year: '2024',
-    location: 'Milan, IT'
+    location: 'Bangalore',
+    clientName: 'Arvind'
   },
   {
     id: '12',
-    title: 'Sun-Drenched Atrium',
-    category: 'Outdoor',
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200',
-    description: 'Mediterranean-inspired courtyard with olive trees and hand-crafted tiles.',
-    year: '2023',
-    location: 'Santorini, GR'
+    title: 'Lavanya',
+    category: 'Construction',
+    image: '/images/portfolio/Construction/Lavanya/1.jpeg',
+    description: 'Full-scale construction with modern building techniques and premium materials.',
+    year: '2024',
+    location: 'Bangalore',
+    clientName: 'Lavanya'
+  },
+  // Remodelling Projects
+  {
+    id: '13',
+    title: 'Mr. Bharadwaj',
+    category: 'Remodelling',
+    image: '/images/portfolio/Remodelling/Bharadwaj/1.jpg',
+    description: 'Complete home remodelling transforming the existing space into a modern, functional living environment.',
+    year: '2024',
+    location: 'Bangalore',
+    clientName: 'Mr. Bharadwaj'
+  },
+  {
+    id: '14',
+    title: 'Mr. Durga Prasad',
+    category: 'Remodelling',
+    image: '/images/portfolio/Remodelling/Durga Prasad/1.jpeg',
+    description: 'Extensive remodelling project enhancing both aesthetics and functionality of the space.',
+    year: '2024',
+    location: 'Bangalore',
+    clientName: 'Mr. Durga Prasad'
   }
 ];
 
