@@ -16,6 +16,18 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Prevent body scroll when menu is open
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' },
@@ -49,19 +61,38 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
+        <button 
+          className="md:hidden relative z-[60] text-[#1A1A1A] hover:text-[#D4AF37] transition-colors" 
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/20 z-[45] md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 bg-[#FAF9F6] z-40 flex flex-col items-center justify-center space-y-8 transition-transform duration-500 md:hidden ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+      <div className={`fixed inset-0 bg-[#FAF9F6] z-[50] flex flex-col items-center justify-center space-y-8 transition-all duration-500 md:hidden ${isOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-full'}`}>
+        <button 
+          className="absolute top-6 right-6 text-[#1A1A1A] hover:text-[#D4AF37] transition-colors"
+          onClick={() => setIsOpen(false)}
+          aria-label="Close menu"
+        >
+          <X size={28} />
+        </button>
         {navLinks.map((link) => (
           <Link 
             key={link.name} 
             to={link.path}
             onClick={() => setIsOpen(false)}
-            className="text-2xl font-serif hover:text-[#D4AF37] transition-colors"
+            className={`text-2xl font-serif hover:text-[#D4AF37] transition-colors ${location.pathname === link.path ? 'text-[#D4AF37]' : 'text-[#1A1A1A]'}`}
           >
             {link.name}
           </Link>
