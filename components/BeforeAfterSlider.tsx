@@ -26,7 +26,7 @@ const BeforeAfterSlider: React.FC = () => {
     >
       {/* After Image (Modern) */}
       <img 
-        src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200" 
+        src="/images/before-after/After.jpg" 
         alt="After" 
         className="absolute inset-0 w-full h-full object-cover"
       />
@@ -37,10 +37,9 @@ const BeforeAfterSlider: React.FC = () => {
         style={{ width: `${sliderPosition}%` }}
       >
         <img 
-          src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1200" 
+          src="/images/before-after/Before.jpeg" 
           alt="Before" 
           className="absolute inset-0 w-full h-full object-cover brightness-75 grayscale"
-          style={{ width: `${100 / (sliderPosition/100)}%` }}
         />
       </div>
 

@@ -11,6 +11,12 @@ const Portfolio: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const categories: Category[] = ['All', 'Architecture', 'Interiors', 'Construction', 'Remodelling'];
+  const categoryDescriptions: Partial<Record<Category, string>> = {
+    Architecture: `Residential projects are the prime focus of our business. We detail each project with personality, consider the client's lifestyle, and tailor the proportioning of every home. It is through this pursuit of ‘custom’ that makes each project memorable.`,
+    Interiors: `Retail, hospitality, both free standing and tenant buildout projects require a skilled hand, an organized leader, and a creative vision to create a place that contributes to, not detracts from, it’s neighborhood. As building code and city ordinances change, we make it a priority to design clear, elegant projects that our clients love.`,
+    Construction: `Remodel projects can be challenging, but that does not mean they have to be difficult. We work along side knowledgeable general contractors to direct remodel projects, so design intent is achieved, budget is respected, and unforeseen circumstances are resolved. Our effort is to have remodel work that is seamless and beautiful.`,
+    //Remodelling: `Remodel projects can be challenging, but that does not mean they have to be difficult. We work along side knowledgeable general contractors to direct remodel projects, so design intent is achieved, budget is respected, and unforeseen circumstances are resolved. Our effort is to have remodel work that is seamless and beautiful.`
+  };
   
   const filteredProjects = filter === 'All' 
     ? PROJECTS 
@@ -26,7 +32,7 @@ const Portfolio: React.FC = () => {
         />
 
         {/* Filters */}
-        <div className="flex flex-wrap justify-center gap-4 mb-16">
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -37,6 +43,17 @@ const Portfolio: React.FC = () => {
             </button>
           ))}
         </div>
+
+        {categoryDescriptions[filter] && (
+          <div className="max-w-3xl mx-auto mb-16 text-center">
+            <h3 className="text-[10px] uppercase tracking-[0.3em] text-[#D4AF37] mb-4">
+              {filter}
+            </h3>
+            <p className="text-sm md:text-base text-[#1A1A1A]/70 leading-relaxed">
+              {categoryDescriptions[filter]}
+            </p>
+          </div>
+        )}
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

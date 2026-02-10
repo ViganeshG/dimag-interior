@@ -5,7 +5,7 @@ import { ArrowRight, ChevronDown, Star, Layout, Briefcase, Maximize, Hammer } fr
 import SectionHeading from '../components/SectionHeading';
 import Button from '../components/Button';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
-import { PROJECTS, SERVICES, LOGOS, TESTIMONIALS, FAQS } from '../constants';
+import { PROJECTS, SERVICES, TESTIMONIALS, FAQS } from '../constants';
 
 const Home: React.FC = () => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -52,18 +52,6 @@ const Home: React.FC = () => {
 
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
           <ChevronDown className="text-white opacity-50" size={32} />
-        </div>
-      </section>
-
-      {/* Trusted By Section */}
-      <section className="py-16 bg-white border-b border-[#1A1A1A]/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-center text-[10px] uppercase tracking-[0.4em] mb-10 opacity-40 font-bold">Featured In</p>
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-30 grayscale">
-            {LOGOS.map((logo) => (
-              <span key={logo} className="text-2xl font-serif font-bold tracking-tighter">{logo}</span>
-            ))}
-          </div>
         </div>
       </section>
 
