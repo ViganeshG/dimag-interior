@@ -53,7 +53,11 @@ const Navbar: React.FC = () => {
             <Link 
               key={link.name} 
               to={link.path}
-              className={`text-xs uppercase tracking-[0.2em] font-medium transition-colors hover:text-[#D4AF37] ${location.pathname === link.path ? 'text-[#D4AF37]' : 'text-[#1A1A1A]'}`}
+              className={`text-xs uppercase tracking-[0.2em] font-medium transition-colors hover:text-[#D4AF37] ${
+                isScrolled 
+                  ? (location.pathname === link.path ? 'text-[#D4AF37]' : 'text-[#1A1A1A]')
+                  : (location.pathname === link.path ? 'text-[#D4AF37]' : 'text-white')
+              }`}
             >
               {link.name}
             </Link>
@@ -62,7 +66,9 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Toggle */}
         <button 
-          className="md:hidden relative z-[60] text-[#1A1A1A] hover:text-[#D4AF37] transition-colors" 
+          className={`md:hidden relative z-[60] hover:text-[#D4AF37] transition-colors ${
+            isScrolled ? 'text-[#1A1A1A]' : 'text-white'
+          }`}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
