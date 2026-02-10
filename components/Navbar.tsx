@@ -49,25 +49,30 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex space-x-10">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
-              to={link.path}
-              className={`text-xs uppercase tracking-[0.2em] font-medium transition-colors hover:text-[#D4AF37] ${
-                isScrolled 
-                  ? (location.pathname === link.path ? 'text-[#D4AF37]' : 'text-[#1A1A1A]')
-                  : (location.pathname === link.path ? 'text-[#D4AF37]' : 'text-white')
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isHomePage = location.pathname === '/';
+            const shouldBeWhite = isHomePage && !isScrolled;
+            
+            return (
+              <Link 
+                key={link.name} 
+                to={link.path}
+                className={`text-xs uppercase tracking-[0.2em] font-medium transition-colors hover:text-[#D4AF37] ${
+                  shouldBeWhite
+                    ? (location.pathname === link.path ? 'text-[#D4AF37]' : 'text-white')
+                    : (location.pathname === link.path ? 'text-[#D4AF37]' : 'text-[#1A1A1A]')
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Mobile Toggle */}
         <button 
           className={`md:hidden relative z-[60] hover:text-[#D4AF37] transition-colors ${
-            isScrolled ? 'text-[#1A1A1A]' : 'text-white'
+            location.pathname === '/' && !isScrolled ? 'text-white' : 'text-[#1A1A1A]'
           }`}
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
